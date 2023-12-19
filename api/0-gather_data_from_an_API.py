@@ -7,9 +7,9 @@ if __name__ == '__main__':
 
 
     users = urllib3.request("GET",
-                            f"https://jsonplaceholder.typicode.com/users?id={argv[1]}")
+                            "https://jsonplaceholder.typicode.com/users?id={}".format(argv[1]))
     todos = urllib3.request("GET",
-                            f"https://jsonplaceholder.typicode.com/todos?userId={argv[1]}")
+                            "https://jsonplaceholder.typicode.com/todos?userId={}".format(argv[1]))
 
     users = users.json()
     todos = todos.json()
@@ -19,8 +19,8 @@ if __name__ == '__main__':
         if todo['completed'] is True:
             num += 1
 
-    print(f"Employee {users[0]['name']} is done with tasks({num}/{len(todos)}):")
+    print("Employee {} is done with tasks({}/{}):".format(users[0]['name'], num, len(todos)))
 
     for todo in todos:
         if todo["completed"] is True:
-            print(f"	 {todo['title']}")
+            print("\t {}".format(todo["title"]))
