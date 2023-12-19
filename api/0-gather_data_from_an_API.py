@@ -23,4 +23,4 @@ if __name__ == '__main__':
 
     for todo in todos:
         if todo["completed"] is True:
-            print(f"    {todo['title']}")
+            print(f"	 {todo['title']}")
