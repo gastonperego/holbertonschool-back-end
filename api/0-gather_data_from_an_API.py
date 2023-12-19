@@ -3,13 +3,11 @@
 
 if __name__ == '__main__':
     from sys import argv
-    import urllib3
+    import requests
 
 
-    users = urllib3.request("GET",
-                            "https://jsonplaceholder.typicode.com/users?id={}".format(argv[1]))
-    todos = urllib3.request("GET",
-                            "https://jsonplaceholder.typicode.com/todos?userId={}".format(argv[1]))
+    users = requests.get("https://jsonplaceholder.typicode.com/users?id={}".format(argv[1]))
+    todos = requests.get("https://jsonplaceholder.typicode.com/todos?userId={}".format(argv[1]))
 
     users = users.json()
     todos = todos.json()
@@ -22,5 +20,6 @@ if __name__ == '__main__':
     print("Employee {} is done with tasks({}/{}):".format(users[0]['name'], num, len(todos)))
 
     for todo in todos:
-        if todo["completed"] is True:
-            print("\t {}".format(todo["title"]))
+        if users[0]['id'] == todo['userId']:
+            if todo["completed"] is True:
+                print("\t {}".format(todo["title"]))
