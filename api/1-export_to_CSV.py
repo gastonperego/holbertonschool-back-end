@@ -15,7 +15,7 @@ if __name__ == '__main__':
     with open(f"{users[0]['id']}.csv", "w", encoding="utf-8") as file:
         for todo in todos:
             uId = users[0]['id']
-            uname = users[0]['name']
+            uname = users[0]['username']
             state = todo['completed']
             tname = todo['title']
             string = (f"\"{uId}\",\"{uname}\",\"{state}\",\"{tname}\"\n")
