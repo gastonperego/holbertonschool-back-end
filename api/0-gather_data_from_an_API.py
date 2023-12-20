@@ -17,7 +17,7 @@ if __name__ == '__main__':
         if todo['completed'] is True:
             num += 1
 
-    print(f"Employee {users[0]['name']} is done with tasks({num}/{len(todos)}")
+    print(f"Employee {users[0]['name']} is done with tasks({num}/{len(todos)})")
 
     for todo in todos:
         if users[0]['id'] == todo['userId']:
