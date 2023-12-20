@@ -15,7 +15,7 @@ if __name__ == '__main__':
     n = 0
     for todo in todos:
         if todo['completed'] is True:
-            num += 1
+            n += 1
 
     print(f"Employee {users[0]['name']} is done with tasks({n}/{len(todos)}):")
 
