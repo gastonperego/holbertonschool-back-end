@@ -2,12 +2,12 @@
 """Prints the completed tasks of an employee"""
 
 if __name__ == '__main__':
-    from sys import argv
     import requests
+    from sys import argv
 
-
-    users = requests.get("https://jsonplaceholder.typicode.com/users?id={}".format(argv[1]))
-    todos = requests.get("https://jsonplaceholder.typicode.com/todos?userId={}".format(argv[1]))
+    url = "https://jsonplaceholder.typicode.com"
+    users = requests.get(f"{url}/users?id={argv[1]}")
+    todos = requests.get(f"{url}/todos?userId={argv[1]}")
 
     users = users.json()
     todos = todos.json()
@@ -17,7 +17,7 @@ if __name__ == '__main__':
         if todo['completed'] is True:
             num += 1
 
-    print("Employee {} is done with tasks({}/{}):".format(users[0]['name'], num, len(todos)))
+    print(f"Employee {users[0]['name']} is done with tasks({num}/{len(todos)}")
 
     for todo in todos:
         if users[0]['id'] == todo['userId']:
