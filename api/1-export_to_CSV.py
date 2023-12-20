@@ -2,19 +2,21 @@
 """Prints the completed tasks of an employee"""
 
 if __name__ == '__main__':
+    import requests
     from sys import argv
-    import urllib3
 
-    users = urllib3.request("GET",
-                            f"https://jsonplaceholder.typicode.com/users?id={argv[1]}")
-    todos = urllib3.request("GET",
-                            f"https://jsonplaceholder.typicode.com/todos?userId={argv[1]}")
+    url = "https://jsonplaceholder.typicode.com"
+    users = requests.get(f"{url}/users?id={argv[1]}")
+    todos = requests.get(f"{url}/todos?userId={argv[1]}")
 
     users = users.json()
     todos = todos.json()
 
     with open(f"{users[0]['id']}.csv", "w", encoding="utf-8") as file:
         for todo in todos:
-            string = f"\"{users[0]['id']}\", \"{users[0]['name']}\", \"{todo['completed']}\", \"{todo['title']}\"\n"
+            uId = users[0]['id']
+            uname = users[0]['name']
+            state = todo['completed']
+            tname = todo['title']
+            string = (f"\"{uId}\", \"{uname}\", \"{state}\",  \"{tname}\"\n")
             file.write(string)
-        
