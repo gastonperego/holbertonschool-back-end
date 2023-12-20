@@ -18,5 +18,5 @@ if __name__ == '__main__':
             uname = users[0]['name']
             state = todo['completed']
             tname = todo['title']
-            string = (f"\"{uId}\", \"{uname}\", \"{state}\",  \"{tname}\"\n")
+            string = (f"\"{uId}\",\"{uname}\",\"{state}\",\"{tname}\"\n")
             file.write(string)
