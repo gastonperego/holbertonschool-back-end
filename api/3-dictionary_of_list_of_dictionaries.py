@@ -2,31 +2,28 @@
 """Prints the completed tasks of an employee"""
 
 if __name__ == '__main__':
+    import json
+    import requests
     from sys import argv
-    import urllib3
 
-    users = urllib3.request("GET",
-                            f"https://jsonplaceholder.typicode.com/users")
+    url = "https://jsonplaceholder.typicode.com"
+
+    users = requests.get(f"{url}/users")
 
     users = users.json()
 
-    dic = {}
-    
+    dic2 = {}
     for user in users:
-        todos = urllib3.request("GET", f"https://jsonplaceholder.typicode.com/todos?userId={user['id']}")
-        todos = todos.json()
         lis = []
+        todos = requests.get(f"{url}/todos?userId={user['id']}")
+        todos = todos.json()
         for todo in todos:
+            dic = {}
             dic["username"] = user["username"]
             dic["task"] = todo["title"]
             dic["completed"] = todo["completed"]
             lis.append(dic)
-        dic2 = {}
         dic2[f"{user['id']}"] = lis
-    
-    print(dic2)
-        
-    
-        
 
-        
+    with open("todo_all_employees.json", "w", encoding="utf-8") as file:
+        file.write(json.dumps(dic2))
