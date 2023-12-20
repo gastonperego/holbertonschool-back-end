@@ -4,19 +4,26 @@
 import json
 
 if __name__ == '__main__':
+    import requests
     from sys import argv
-    import urllib3
 
-    users = urllib3.request("GET",
-                            f"https://jsonplaceholder.typicode.com/users?id={argv[1]}")
-    todos = urllib3.request("GET",
-                            f"https://jsonplaceholder.typicode.com/todos?userId={argv[1]}")
+    url = "https://jsonplaceholder.typicode.com"
+    users = requests.get(f"{url}/users?id={argv[1]}")
+    todos = requests.get(f"{url}/todos?userId={argv[1]}")
 
     users = users.json()
     todos = todos.json()
 
     dic = {}
-    dic[users[0]["id"]] = todos
-    
+    lis = []
+    for todo in todos:
+        dic["task"] = todo["title"]
+        dic["completed"] = todo["completed"]
+        dic["username"] = users[0]["username"]
+        lis.append(dic)
+
+    dic2 = {}
+    dic2[users[0]["id"]] = lis
+
     with open(f"{users[0]['id']}.json", "w", encoding="utf-8") as file:
-        file.write(json.dumps(dic))
+        file.write(json.dumps(dic2))
